@@ -20,7 +20,7 @@ df = pd.read_csv('StudentsPerformanceCleaned.csv')
 print(df.head())
 
 # Definere funktioner
-def calc_pop_mean(data=[], size=100, count=1000): # bootstrap
+def calc_pop_mean(data=None, size=100, count=1000): # bootstrap
     means = []
     for i in range(count):
         means.append(np.random.choice(data, size=size, replace=True))
@@ -43,7 +43,6 @@ ax[0].set_title('Testpreperation proportions')
 plt.subplots_adjust(wspace=2)
 plt.tight_layout()
 sns.color_palette('pastel')
-plt.show()
 
 # One-Sample T-Tests
 read_none = df[df.testprep == 'none']['reading score']
@@ -67,3 +66,41 @@ print('Math Score: Forskel er ' + ('signifikant' if pval_m < sig_level else 'ikk
 print('-------------------------------------')
 print('Writing Score: Forskel er ' + ('signifikant' if pval_w < sig_level else 'ikke signifikant'))
 print('-------------------------------------')
+
+# ---------------------------------------------------------------
+
+# Does parental level of education affect mean score?
+df['mean_score'] = (df['math score'] + df['reading score'] + df['writing score'])/3
+
+# One-Sample T-Tests 2
+gen_edu = df['mean_score']
+gen_edu_pop_mean = calc_pop_mean(gen_edu, size=1000, count=1000)
+tstat, pval_h = ss.ttest_1samp(df[df.p_edu == 'high school']['mean_score'], gen_edu_pop_mean)
+tstat, pval_ma = ss.ttest_1samp(df[df.p_edu == 'master\'s degree']['mean_score'], gen_edu_pop_mean)
+
+# Printing results from One-Sample T-Tests 2
+sig_level_2 = 0.05
+print('-------------------------------------')
+print('Highschool: Forskel er ' + ('signifikant' if pval_h < sig_level_2 else 'ikke signifikant'))
+print('-------------------------------------')
+print('Master\'s degree: Forskel er ' + ('signifikant' if pval_ma < sig_level_2 else 'ikke signifikant'))
+print('-------------------------------------')
+
+# Subplots 2
+labels_2 = ['high school','master\'s degree']
+fig2, ax2 = plt.subplots(2, 1, figsize=(8,14))
+
+# Plotte kde-plots 2
+for i, l in enumerate(labels_2):
+    sns.kdeplot(df['mean_score'], shade=True, label='Generel Population', ax=ax2[i])
+    sns.kdeplot(df[df.p_edu == l]['mean_score'], shade=True, label=l, ax=ax2[i])
+    ax2[i].set_xlabel('Mean_score')
+    ax2[i].set_ylabel('Probability Density')
+    ax2[i].legend()
+
+# Indstillinger for plot 2
+ax2[0].set_title('Does parental level of education affect mean score?')
+plt.subplots_adjust(wspace=2)
+plt.tight_layout()
+sns.color_palette('pastel')
+plt.show()
