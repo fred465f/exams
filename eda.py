@@ -111,24 +111,19 @@ sns.color_palette('pastel')
 labels_3 = ['reading score','math score','writing score']
 fig3, ax3 = plt.subplots(3, 1, figsize=(8,14))
 
-# Plotte scatterplots
-for i, l in enumerate(labels):
+# Plotte scatter-plots
+for i, l in enumerate(labels_3):
     if i == 0:
-        ax3.scatter(df[l], df[labels_3[i + 1]], label='none')
-        ax3.scatter(df[l], df[labels_3[i + 2]], label='none')
-        ax[i].set_xlabel(l)
-        ax[i].set_ylabel(labels_3[i + 1])
-        ax[i].legend()
+        sns.scatterplot(df[l], df[labels_3[i+1]],\
+         palette = 'pastel', alpha = 0.5, ax=ax3[i])
+        sns.scatterplot(df[l], df[labels_3[i+2]],\
+         palette = 'pastel', alpha = 0.5, ax=ax3[i+1])
     elif i == 1:
-        ax3.scatter(df[l], df[labels_3[i + 1]], label='none')
-        ax[i].set_xlabel(l)
-        ax[i].set_ylabel(labels_3[i + 1])
-        ax[i].legend()
+        sns.scatterplot(df[l], df[labels_3[i+1]],\
+         palette = 'pastel', alpha = 0.5, ax=ax3[i+1])
     else:
         None
 
-# Indstillinger for plot 3
-ax2[0].set_title('Are mean scores for different categories associated?')
-plt.subplots_adjust(wspace=2)
-plt.tight_layout()
+# Indstillinger for plot 3  
+ax3[0].set_title('Quantative association between different test scores')
 plt.show()
