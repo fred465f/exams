@@ -103,4 +103,32 @@ ax2[0].set_title('Does parental level of education affect mean score?')
 plt.subplots_adjust(wspace=2)
 plt.tight_layout()
 sns.color_palette('pastel')
+
+# ---------------------------------------------------------------
+
+# Are mean scores for different categories associated?
+# Subplots 3
+labels_3 = ['reading score','math score','writing score']
+fig3, ax3 = plt.subplots(3, 1, figsize=(8,14))
+
+# Plotte scatterplots
+for i, l in enumerate(labels):
+    if i == 0:
+        ax3.scatter(df[l], df[labels_3[i + 1]], label='none')
+        ax3.scatter(df[l], df[labels_3[i + 2]], label='none')
+        ax[i].set_xlabel(l)
+        ax[i].set_ylabel(labels_3[i + 1])
+        ax[i].legend()
+    elif i == 1:
+        ax3.scatter(df[l], df[labels_3[i + 1]], label='none')
+        ax[i].set_xlabel(l)
+        ax[i].set_ylabel(labels_3[i + 1])
+        ax[i].legend()
+    else:
+        None
+
+# Indstillinger for plot 3
+ax2[0].set_title('Are mean scores for different categories associated?')
+plt.subplots_adjust(wspace=2)
+plt.tight_layout()
 plt.show()
