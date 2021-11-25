@@ -4,6 +4,6 @@ samt jupyter notebooks til exploratory-data-analysis og visualisering. Data'et e
 i resources. I fil-mappen er en rapport over analyse processen vedhæftet til den interesserede læser. Rapporten er
 også linket her: https://github.com/fred465f/exams/blob/master/Eksamens_unders_gelse___Data_projekt.pdf
 
-## Resources:
+## Resourcer:
 https://www.kaggle.com/spscientist/students-performance-in-exams
-Credits to Jakki Seshapanpu for collecting data.
+Credits til Jakki Seshapanpu for indsamling af data.
